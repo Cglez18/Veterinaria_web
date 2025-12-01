@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  # SERVICIO 1: TU PÁGINA WEB (PHP + Apache)
+  web:
+    build: .
+    ports:
+      - "8080:80"  # Entrarás por localhost:8080 (para no chocar con tu XAMPP)
+    volumes:
+      - .:/var/www/html # Sincroniza tu carpeta con el contenedor en tiempo real
+    depends_on:
+      - db
+
+  # SERVICIO 2: LA BASE DE DATOS (MySQL)
+  db:
+    image: mysql:8.0
+    container_name: veterinaria_db
+    environment:
+      MYSQL_ROOT_PASSWORD: root  # Contraseña para Docker
+      MYSQL_DATABASE: Veterinaria
+    volumes:
+      # ESTO ES MAGIA: Al iniciar, carga tu script SQL automáticamente
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+      # Persistencia de datos (para que no se borren al apagar)
+      - db_data:/var/lib/mysql
+
+volumes:
+  db_data:
