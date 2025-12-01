@@ -6,7 +6,7 @@ $mascotas = [];
 $propietarios = [];
 $accion = "guardar";
 
-// --- 1. CARGAR LISTA DE PROPIETARIOS (Para el Combobox) ---
+// --- 1. CARGAR LISTA DE PROPIETARIOS---
 // Necesitamos esto siempre, para poder elegir dueño al crear/editar
 $sql_props = "SELECT id_Prop, nom_Prop FROM Propietario ORDER BY nom_Prop ASC";
 $stmt_props = $pdo->query($sql_props);
